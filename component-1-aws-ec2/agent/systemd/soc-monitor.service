@@ -1,0 +1,19 @@
+[Unit]
+Description=SOC Monitor Agent - EC2 log/FIM/HTTP detection to webhook
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/soc-monitor
+EnvironmentFile=-/opt/soc-monitor/.env
+ExecStart=/usr/bin/python3 /opt/soc-monitor/monitor.py
+Restart=always
+RestartSec=5
+NoNewPrivileges=false
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
